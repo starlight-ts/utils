@@ -1,0 +1,49 @@
+name: Auto publish
+
+on:
+  push:
+    branches:
+    - master
+    - stable
+  pull_request:
+
+jobs:
+  Binaries:
+    name: Build binaries v${{ matrix.node_version }} - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && contains(github.event.head_commit.message, '[publish binaries]')
+    strategy:
+       matrix:
+        node_version: [12, 13, 14]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+    steps:
+    - name: Checkout Project
+      uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node_version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node_version }}
+    - name: Use Rust Nightly
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: nightly
+        override: true
+    - name: Restore CI Yarn Cache
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+    - name: Restore CI Rust Cache
+      uses: actions/cache@v1
+      with:
+        path: ~/.cargo/registry
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+    - name: Install Neon CLI
+      run: yarn global add neon-cli
+    - name: Install Dependencies
+      run: yarn --ignore-scripts
+    - name: Publish Binaries
+      run: yarn upload-binary
+      env:
+        NODE_PRE_GYP_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
