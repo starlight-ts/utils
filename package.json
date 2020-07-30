@@ -43,5 +43,8 @@
 		"@typescript-eslint/parser": "^3.7.1",
 		"eslint": "^7.5.0",
 		"typescript": "^3.9.7"
+	},
+	"publishConfig": {
+		"access": "public"
 	}
 }
