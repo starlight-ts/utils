@@ -6,7 +6,7 @@
 	"types": "typings/index.d.ts",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com:starlight-ts/utils.git"
+		"url": "git+https://github.com/starlight-ts/utils.git"
 	},
 	"author": "Gryffon Bellish <owenbellish@gmail.com>",
 	"license": "MIT",
