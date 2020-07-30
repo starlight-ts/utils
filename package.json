@@ -6,7 +6,7 @@
 	"types": "typings/index.d.ts",
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:starlight-ts/utils.git"
+		"url": "git+https://github.com:starlight-ts/utils.git"
 	},
 	"author": "Gryffon Bellish <owenbellish@gmail.com>",
 	"license": "MIT",
@@ -30,7 +30,7 @@
 	],
 	"binary": {
 		"module_name": "index",
-		"host": "https://github.com/PyroTechniac/pyro-opus/releases/download/",
+		"host": "https://github.com/starlight-ts/utils/releases/download/",
 		"remote_path": "{version}",
 		"package_name": "{node_abi}-{platform}-{arch}.tar.gz",
 		"module_path": "./native",
