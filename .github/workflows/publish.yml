@@ -28,15 +28,24 @@ jobs:
       with:
         toolchain: nightly
         override: true
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
     - name: Restore CI Yarn Cache
-      uses: actions/cache@v1
+      id: yarn-cachre
+      uses: actions/cache@v2
       with:
-        path: node_modules
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
     - name: Restore CI Rust Cache
-      uses: actions/cache@v1
+      uses: actions/cache@v2
       with:
-        path: ~/.cargo/registry
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          target
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
     - name: Install Neon CLI
       run: yarn global add neon-cli
