@@ -10,8 +10,7 @@ impl FileReaderTask {
         let filepath = cx.argument::<JsString>(0)?.value();
         let callback = cx.argument::<JsFunction>(1)?;
 
-        let task = FileReaderTask { filepath };
-        task.schedule(callback);
+        (FileReaderTask { filepath }).schedule(callback);
         Ok(cx.undefined())
     }
 }
