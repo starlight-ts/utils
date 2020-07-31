@@ -36,7 +36,7 @@ impl Task for FileReaderTask {
         let filebytes = result.unwrap();
         let buffer = cx.buffer(filebytes.len() as u32)?;
         for (i, byte) in filebytes.iter().enumerate() {
-            let js_byte = cx.number(byte.clone() as u8);
+            let js_byte = cx.number(*byte);
             buffer.set(&mut cx, i as u32, js_byte).unwrap();
         }
         Ok(buffer)
