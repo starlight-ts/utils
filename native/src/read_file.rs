@@ -29,10 +29,10 @@ impl Task for FileReaderTask {
         mut cx: TaskContext,
         result: Result<Self::Output, Self::Error>,
     ) -> JsResult<Self::JsEvent> {
-        if let Err(error) = result {
-            return cx.throw_type_error(format!("{}", error));
-        };
-        let filebytes = result.unwrap();
+		let filebytes = match result {
+			Ok(file) => file,
+			Err(err) => return cx.throw_type_error(format!("{}", err))
+		};
         let buffer = cx.buffer(filebytes.len() as u32)?;
         for (i, byte) in filebytes.iter().enumerate() {
             let js_byte = cx.number(*byte);
