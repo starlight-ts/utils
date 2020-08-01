@@ -1,6 +1,6 @@
 {
 	"name": "@pyrotechniac/utils",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Utilities for the Starlight bot",
 	"main": "./lib/index.js",
 	"types": "./typings/index.d.ts",
@@ -34,7 +34,6 @@
 		"typescript": "^3.9.7"
 	},
 	"files": [
-		"native/index.node",
 		"lib/",
 		"typings/"
 	],
