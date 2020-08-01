@@ -22,5 +22,6 @@ const suite = new Suite()
 	})
 	.on('complete', () => {
 		console.log(`Fastest was ${suite.filter('fastest').map('name')}`);
+		process.exit();
 	})
 	.run({ 'async': true });
