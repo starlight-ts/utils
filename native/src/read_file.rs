@@ -1,4 +1,4 @@
-use super::check_error;
+use super::node_error;
 use neon::prelude::*;
 use std::fs::read;
 
@@ -30,7 +30,7 @@ impl Task for FileReaderTask {
         mut cx: TaskContext,
         result: Result<Self::Output, Self::Error>,
     ) -> JsResult<Self::JsEvent> {
-        let filebytes = check_error!(result, cx);
+        let filebytes = node_error!(result, cx);
         let buffer = cx.buffer(filebytes.len() as u32)?;
         for (i, byte) in filebytes.iter().enumerate() {
             let js_byte = cx.number(*byte);

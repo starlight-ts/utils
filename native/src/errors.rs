@@ -1,5 +1,5 @@
 #[macro_export]
-macro_rules! check_error {
+macro_rules! node_error {
     ($res:expr, $cx:expr) => {{
         match $res {
             Ok(res) => res,
