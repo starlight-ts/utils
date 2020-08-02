@@ -5,6 +5,5 @@ mod errors;
 mod read_file;
 
 register_module!(mut m, {
-    m.export_function("readFile", FileReaderTask::read_file)?;
-    Ok(())
+    m.export_function("readFile", FileReaderTask::read_file)
 });
