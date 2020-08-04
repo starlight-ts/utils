@@ -1,5 +1,5 @@
 const { Suite } = require('benchmark');
-const { readFile: neonReadFile } = require('../');
+const { readFile: neonReadFile, readFileInline } = require('../');
 const { readFile: nodeReadFile } = require('fs/promises');
 const { join } = require('path');
 

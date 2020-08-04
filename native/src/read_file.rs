@@ -2,6 +2,7 @@ use super::node_error;
 use neon::prelude::*;
 use std::fs::read;
 
+#[derive(Debug)]
 pub struct FileReaderTask {
     filepath: String,
 }
