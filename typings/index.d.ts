@@ -1,5 +1,10 @@
 declare module '@pyrotechniac/utils' {
 	/**
+	 * The version of the library
+	 */
+	export const version: string;
+
+	/**
 	 * Reads a file and returns a buffer.
 	 * @param path The path to the file.
 	 */
