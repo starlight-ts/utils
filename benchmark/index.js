@@ -1,5 +1,5 @@
 const { Suite } = require('benchmark');
-const { readFile: neonReadFile, readFileInline } = require('../');
+const { readFile: neonReadFile, readFileSync } = require('../');
 const { readFile: nodeReadFile } = require('fs/promises');
 const { join } = require('path');
 
@@ -13,6 +13,9 @@ function validate(result) {
 const suite = new Suite()
 	.add('Node read file', async () => {
 		await validate(await nodeReadFile(filePath));
+	})
+	.add('Neon read file sync', async () => {
+		await validate(readFileSync(filePath));
 	})
 	.add('Neon read file', async () => {
 		await validate(await neonReadFile(filePath));
