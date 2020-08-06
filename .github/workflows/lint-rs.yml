@@ -1,0 +1,50 @@
+name: Rust Linting
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+
+defaults:
+  run:
+    working-directory: ./native
+
+jobs:
+  Clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v2
+      - name: Install rustup
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - name: Install Clippy
+        run: rustup component add clippy
+      - name: Run Clippy
+        uses: actions-rs/cargo@v1
+        with:
+          command: Clippy
+  Rustfmt:
+    name: Rustfmt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v2
+      - name: Install rustup
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - name: Install Rustfmt
+        run: rustup component add rustfmt
+      - name: Run Rustfmt
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: --all -- --check
