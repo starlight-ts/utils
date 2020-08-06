@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type, @typescript-eslint/unbound-method */
 const { Suite } = require('benchmark');
 const { readFile: neonReadFile, readFileSync } = require('../');
 const { readFile: nodeReadFile } = require('fs/promises');
@@ -20,11 +21,11 @@ const suite = new Suite()
 	.add('Neon read file', async () => {
 		await validate(await neonReadFile(filePath));
 	})
-	.on('cycle', (event) => {
+	.on('cycle', event => {
 		console.log(String(event.target));
 	})
 	.on('complete', () => {
 		console.log(`Fastest was ${suite.filter('fastest').map('name')}`);
 		process.exit();
 	})
-	.run({ 'async': true });
+	.run({ async: true });

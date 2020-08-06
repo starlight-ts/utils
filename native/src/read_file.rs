@@ -1,4 +1,4 @@
-use super::{node_error, NodeTaskRunner};
+use super::{node_error, TaskRunner};
 use neon::prelude::*;
 use std::fs::read;
 
@@ -19,7 +19,7 @@ pub struct FileReaderTask {
     filepath: String,
 }
 
-impl NodeTaskRunner for FileReaderTask {
+impl TaskRunner for FileReaderTask {
     fn run(mut cx: FunctionContext) -> JsResult<JsUndefined> {
         let filepath = cx.argument::<JsString>(0)?.value();
         let callback = cx.argument::<JsFunction>(1)?;
