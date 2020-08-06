@@ -13,7 +13,7 @@ function validate(result) {
 
 const suite = new Suite()
 	.add('Node read file', async () => {
-		await validate(await nodeReadFile(filePath))
+		await validate(await nodeReadFile(filePath));
 	})
 	.add('Neon read file sync', async () => {
 		await validate(readFileSync(filePath));
