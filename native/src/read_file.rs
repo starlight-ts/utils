@@ -1,4 +1,4 @@
-use super::node_error;
+use super::{node_error, NodeTaskRunner};
 use neon::prelude::*;
 use std::fs::read;
 
@@ -8,7 +8,7 @@ pub fn read_file_sync(mut cx: FunctionContext) -> JsResult<JsBuffer> {
     let bytes = node_error!(file, cx);
     let buffer = cx.buffer(bytes.len() as u32)?;
     for (i, byte) in bytes.iter().enumerate() {
-        let js_byte = cx.number(*byte);
+        let js_byte = cx.number(byte.clone());
         buffer.set(&mut cx, i as u32, js_byte)?;
     }
     Ok(buffer)
@@ -19,12 +19,12 @@ pub struct FileReaderTask {
     filepath: String,
 }
 
-impl FileReaderTask {
-    pub fn read_file(mut cx: FunctionContext) -> JsResult<JsUndefined> {
+impl NodeTaskRunner for FileReaderTask {
+    fn run(mut cx: FunctionContext) -> JsResult<JsUndefined> {
         let filepath = cx.argument::<JsString>(0)?.value();
         let callback = cx.argument::<JsFunction>(1)?;
 
-        (FileReaderTask { filepath }).schedule(callback);
+        (Self { filepath }).schedule(callback);
         Ok(cx.undefined())
     }
 }

@@ -1,3 +1,5 @@
+use neon::prelude::*;
+
 #[macro_export]
 macro_rules! node_error {
     ($res:expr, $cx:expr) => {{
@@ -6,4 +8,8 @@ macro_rules! node_error {
             Err(err) => return $cx.throw_type_error(format!("{}", err)),
         }
     }};
+}
+
+pub(crate) trait NodeTaskRunner {
+    fn run(cx: FunctionContext) -> JsResult<JsUndefined>;
 }

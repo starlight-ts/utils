@@ -1,4 +1,4 @@
-use super::node_error;
+use super::{node_error, NodeTaskRunner};
 use neon::prelude::*;
 use std::fs::write;
 
@@ -17,13 +17,13 @@ pub struct FileWriterTask {
     data: Vec<u8>,
 }
 
-impl FileWriterTask {
-    pub fn write_file(mut cx: FunctionContext) -> JsResult<JsUndefined> {
+impl NodeTaskRunner for FileWriterTask {
+    fn run(mut cx: FunctionContext) -> JsResult<JsUndefined> {
         let filepath = cx.argument::<JsString>(0)?.value();
         let buffer = cx.argument::<JsBuffer>(1)?;
         let callback = cx.argument::<JsFunction>(2)?;
         cx.borrow(&buffer, |data| {
-            (FileWriterTask {
+            (Self {
                 filepath,
                 data: Vec::from(data.as_slice::<u8>()),
             })
