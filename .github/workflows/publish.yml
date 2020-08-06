@@ -4,7 +4,6 @@ on:
   push:
     branches:
     - master
-    - stable
   pull_request:
 
 jobs:
@@ -32,7 +31,7 @@ jobs:
       id: yarn-cache-dir-path
       run: echo "::set-output name=dir::$(yarn cache dir)"
     - name: Restore CI Yarn Cache
-      id: yarn-cachre
+      id: yarn-cache
       uses: actions/cache@v2
       with:
         path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -50,7 +49,7 @@ jobs:
     - name: Install Neon CLI
       run: yarn global add neon-cli
     - name: Install Dependencies
-      run: yarn --ignore-scripts
+      run: yarn --ignore-scripts --frozen-lockfile
     - name: Publish Binaries
       run: yarn upload-binary
       env:

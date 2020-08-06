@@ -1,0 +1,34 @@
+name: Java/TypeScript Linting
+
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+
+jobs:
+  Linting:
+    name: Linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v2
+      - name: Uses NodeJS 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Get CI Cache Location
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Restore CI Cache
+        id: yarn-cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install Dependencies
+        run: yarn --ignore-scripts --frozen-lockfile
+      - name: Run ESLint
+        uses: icrawl/action-eslint@v1
