@@ -26,11 +26,8 @@ jobs:
       #     command: clippy
       #     args: -- --check
       - name: Run Clippy
-        run: |
-          #!/bin/bash
-          ls
-          cd native
-          cargo clippy -- --check
+        run: cargo clippy
+        working-directory: native
   Rustfmt:
     name: Rustfmt
     runs-on: ubuntu-latest
