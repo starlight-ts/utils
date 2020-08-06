@@ -6,10 +6,6 @@ on:
     - master
   pull_request:
 
-defaults:
-  run:
-    working-directory: native
-
 jobs:
   Clippy:
     name: Clippy
@@ -17,8 +13,8 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v2
-      - name: Move into the directory
-        run: cd native
+      - name: Move rust files up one directory
+        run: mv ./native ..
       - name: Install rustup
         uses: actions-rs/toolchain@v1
         with:
