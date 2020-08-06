@@ -8,7 +8,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./native
+    working-directory: native
 
 jobs:
   Clippy:
@@ -28,7 +28,7 @@ jobs:
       - name: Run Clippy
         uses: actions-rs/cargo@v1
         with:
-          command: Clippy
+          command: clippy
   Rustfmt:
     name: Rustfmt
     runs-on: ubuntu-latest
