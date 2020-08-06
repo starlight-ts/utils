@@ -7,7 +7,7 @@ use neon::register_module;
 use read_file::{read_file_sync, FileReaderTask};
 use write_file::{write_file_sync, FileWriterTask};
 
-pub(crate) use internal::TaskRunner;
+pub use internal::TaskRunner;
 
 mod internal;
 mod read_file;

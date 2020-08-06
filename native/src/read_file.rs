@@ -8,7 +8,7 @@ pub fn read_file_sync(mut cx: FunctionContext) -> JsResult<JsBuffer> {
     let bytes = node_error!(file, cx);
     let buffer = cx.buffer(bytes.len() as u32)?;
     for (i, byte) in bytes.iter().enumerate() {
-        let js_byte = cx.number(byte.clone());
+        let js_byte = cx.number(*byte);
         buffer.set(&mut cx, i as u32, js_byte)?;
     }
     Ok(buffer)

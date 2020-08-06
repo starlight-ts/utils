@@ -10,6 +10,6 @@ macro_rules! node_error {
     }};
 }
 
-pub(crate) trait TaskRunner: Task {
+pub trait TaskRunner: Task {
     fn run(cx: FunctionContext) -> JsResult<JsUndefined>;
 }
