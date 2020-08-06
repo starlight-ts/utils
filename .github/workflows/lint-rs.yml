@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v2
+      - name: Move into the directory
+        run: cd native
       - name: Install rustup
         uses: actions-rs/toolchain@v1
         with:
