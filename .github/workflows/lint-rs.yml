@@ -13,9 +13,6 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v2
-      - name: Move rust files up one directory
-        run: mv native ..
-        shell: bash
       - name: Install rustup
         uses: actions-rs/toolchain@v1
         with:
