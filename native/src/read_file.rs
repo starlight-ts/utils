@@ -5,7 +5,7 @@ use std::fs::read;
 pub fn read_file_sync(mut cx: FunctionContext) -> JsResult<JsBuffer> {
     let filepath = cx.argument::<JsString>(0)?.value();
     let file = read(filepath).map_err(|err| err.to_string());
-    let bytes = node_error!(file, cx);
+    let bytes = node_error!(cx, file, type);
     let buffer = cx.buffer(bytes.len() as u32)?;
     for (i, byte) in bytes.iter().enumerate() {
         let js_byte = cx.number(*byte);
@@ -43,7 +43,7 @@ impl Task for FileReaderTask {
         mut cx: TaskContext,
         result: Result<Self::Output, Self::Error>,
     ) -> JsResult<Self::JsEvent> {
-        let filebytes = node_error!(result, cx);
+        let filebytes = node_error!(cx, result, type);
         let buffer = cx.buffer(filebytes.len() as u32)?;
         for (i, byte) in filebytes.iter().enumerate() {
             let js_byte = cx.number(*byte);

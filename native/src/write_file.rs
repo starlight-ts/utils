@@ -7,7 +7,7 @@ pub fn write_file_sync(mut cx: FunctionContext) -> JsResult<JsUndefined> {
     let buffer = cx.argument::<JsBuffer>(1)?;
     let data = cx.borrow(&buffer, |raw| Vec::from(raw.as_slice::<u8>()));
     let err = write(filepath, data).map_err(|err| err.to_string());
-    node_error!(err, cx);
+    node_error!(cx, err, type);
     Ok(cx.undefined())
 }
 
@@ -47,7 +47,7 @@ impl Task for FileWriterTask {
         mut cx: TaskContext,
         result: Result<Self::Output, Self::Error>,
     ) -> JsResult<Self::JsEvent> {
-        node_error!(result, cx);
+        node_error!(cx, result, type);
         Ok(cx.undefined())
     }
 }

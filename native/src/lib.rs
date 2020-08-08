@@ -1,7 +1,7 @@
 #![deny(clippy::all)]
 #![warn(clippy::nursery, clippy::pedantic)]
 // This is enabled so that we can cast to the stricter numbers that neon requires.
-#![allow(clippy::cast_possible_truncation, clippy::module_name_repetitions)]
+#![allow(clippy::cast_possible_truncation, clippy::module_name_repetitions, clippy::missing_errors_doc)]
 
 use neon::register_module;
 use read_file::{read_file_sync, FileReaderTask};
